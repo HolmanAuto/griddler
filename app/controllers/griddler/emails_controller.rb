@@ -17,6 +17,8 @@ class Griddler::EmailsController < ActionController::Base
   private :processor_class, :email_class, :processor_method, :email_service
 
   def normalized_params
+    params['html'].force_encoding(Encoding.find('UTF-8')) if params['html'].present?
+    params['text'].force_encoding(Encoding.find('UTF-8')) if params['text'].present?
     Array.wrap(email_service.normalize_params(params))
   end
 
